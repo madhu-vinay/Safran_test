@@ -1,46 +1,29 @@
+# About the uploaded code
+Scope- transfer the data between the devices and sync up regurarly
+
+This code uses the ESPNOW protocol (wireless) and UART (wired) communication for transfering the data between the devices.
+
+The data will be sent to other device when the present device senses a data.
+
+We can also activate or deativate the communication protocols ESPNOW and UART using by changing the define to 0.
+ For ESPNOW-
+     line no.27 #define espnow 0 for off and 1 for on.
+ For UART-
+     line no.30 #define uart 0 for off and 1 for on.
+
+For ESPNOW we have to mention the MAC address of the devices to which the data has to be sent.
+  In line no.49 broadcastAddress1[] should contain the MAC address of the device to which the data to be sent.
+  
+Future Scope-
+1. We can add a GATT code to give the details of MAC address of the other device over BLE instead of giving manually in the code.
+2. Use MQTT so that the device can sync anywhere around the world.
 # Espressif IoT Development Framework
-
-* [中文版](./README_CN.md)
-
-ESP-IDF is the development framework for Espressif SoCs supported on Windows, Linux and macOS.
-
-# ESP-IDF Release and SoC Compatibility
-
-The following table shows ESP-IDF support of Espressif SoCs where :yellow_circle: and :green_circle: denote preview status and support, respectively. In preview status the build is not yet enabled and some crucial parts could be missing (like documentation, datasheet). Please use an ESP-IDF release where the desired SoC is already supported.
-
-|Chip         |     v3.3       |      v4.0      |       v4.1     |     v4.2       |     v4.3       |     v4.4       |                                                            |
-|:----------- |:-------------: | :-------------:| :-------------:| :-------------:| :-------------:| :-------------:|:---------------------------------------------------------- |
-|ESP32        | :green_circle: | :green_circle: | :green_circle: | :green_circle: | :green_circle: | :green_circle: |                                                            |
-|ESP32-S2     |                |                |                | :green_circle: | :green_circle: | :green_circle: |                                                            |
-|ESP32-C3     |                |                |                |                | :green_circle: | :green_circle: |                                                            |
-|ESP32-S3     |                |                |                |                | :yellow_circle:| :green_circle: | [Announcement](https://www.espressif.com/en/news/ESP32_S3) |
-|ESP32-H2     |                |                |                |                |                | :yellow_circle:| [Announcement](https://www.espressif.com/en/news/ESP32_H2) |
-
-Espressif SoCs released before 2016 (ESP8266 and ESP8285) are supported by [RTOS SDK](https://github.com/espressif/ESP8266_RTOS_SDK) instead.
-
-# Developing With ESP-IDF
 
 ## Setting Up ESP-IDF
 
 See https://idf.espressif.com/ for links to detailed instructions on how to set up the ESP-IDF depending on chip you use.
 
 **Note:** Each SoC series and each ESP-IDF release has its own documentation. Please see Section [Versions](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/versions.html) on how to find documentation and how to checkout specific release of ESP-IDF.
-
-### Non-GitHub forks
-
-ESP-IDF uses relative locations as its submodules URLs ([.gitmodules](.gitmodules)). So they link to GitHub.
-If ESP-IDF is forked to a Git repository which is not on GitHub, you will need to run the script
-[tools/set-submodules-to-github.sh](tools/set-submodules-to-github.sh) after git clone.
-The script sets absolute URLs for all submodules, allowing `git submodule update --init --recursive` to complete.
-If cloning ESP-IDF from GitHub, this step is not needed.
-
-## Finding a Project
-
-As well as the [esp-idf-template](https://github.com/espressif/esp-idf-template) project mentioned in Getting Started, ESP-IDF comes with some example projects in the [examples](examples) directory.
-
-Once you've found the project you want to work with, change to its directory and you can configure and build it.
-
-To start your own project based on an example, copy the example project directory outside of the ESP-IDF directory.
 
 # Quick Reference
 
@@ -86,30 +69,3 @@ Exit the monitor by typing Ctrl-].
 To build, flash and monitor output in one pass, you can run:
 
 `idf.py flash monitor`
-
-## Compiling & Flashing Only the App
-
-After the initial flash, you may just want to build and flash just your app, not the bootloader and partition table:
-
-* `idf.py app` - build just the app.
-* `idf.py app-flash` - flash just the app.
-
-`idf.py app-flash` will automatically rebuild the app if any source files have changed.
-
-(In normal development there's no downside to reflashing the bootloader and partition table each time, if they haven't changed.)
-
-## Erasing Flash
-
-The `idf.py flash` target does not erase the entire flash contents. However it is sometimes useful to set the device back to a totally erased state, particularly when making partition table changes or OTA app updates. To erase the entire flash, run `idf.py erase_flash`.
-
-This can be combined with other targets, ie `idf.py -p PORT erase_flash flash` will erase everything and then re-flash the new app, bootloader and partition table.
-
-# Resources
-
-* Documentation for the latest version: https://docs.espressif.com/projects/esp-idf/. This documentation is built from the [docs directory](docs) of this repository.
-
-* The [esp32.com forum](https://esp32.com/) is a place to ask questions and find community resources.
-
-* [Check the Issues section on github](https://github.com/espressif/esp-idf/issues) if you find a bug or have a feature request. Please check existing Issues before opening a new one.
-
-* If you're interested in contributing to ESP-IDF, please check the [Contributions Guide](https://docs.espressif.com/projects/esp-idf/en/latest/contribute/index.html).
