@@ -29,7 +29,7 @@
 /* 0- UART off & 1 for on*/
 #define uart 1
 
-///////////////////// UART inti//////////////////////////
+///////////////////// UART initialization //////////////////////////
 #define TXD_PIN GPIO_NUM_17
 #define RXD_PIN GPIO_NUM_16
 const int uart_num = UART_NUM_2;
@@ -53,9 +53,10 @@ struct timeval tv_now;
 char num_char[1];
 char  *jsonToString;
 
+/* example data */ 
 int num=6;
 char item_char[100]="1102,2110,1023,2310,1021,3109";
-char count_char[100]="10,10,5,10,15,20";
+char count_char[100]="10,10,5,10,15,20"; 
 
 /*Callback function when ESPNow send a message-----------------------------------------------*/
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
@@ -118,7 +119,9 @@ void startEspNow()
     change=1;
     uart_init();
     xTaskCreate(Send_Data, "Send_Data", 8192, NULL, 10, NULL);
+    #if uart
     xTaskCreate(uart_read, "uart_read", 8192, NULL, 10, NULL);
+    #endif
 }
 
 /*Function to send data over ESPNow, recieve the message that want to be send --------------*/
@@ -207,9 +210,8 @@ void uart_init()
 }
 
 /**
- * @brief If this device gets data from other devices it calls this functions
- * this function breaks the received data and compares with the data present
- * and appends if there is any data missed to the devices data.
+ * @brief A task to continuously read the data on uart connection
+ * 
  */
 static void uart_read()
 {
@@ -234,7 +236,13 @@ static void uart_read()
     vTaskDelay(100);   
         }
 }
-        
+
+
+/**
+ * @brief If this device gets data from other devices it calls this functions
+ * this function breaks the received data and compares with the data present
+ * and appends if there is any data missed to the devices data.
+ */       
 void read_data(char *msg)
 {
   cJSON *parsedData = cJSON_Parse(msg);   //Parse JSON data from incoming message

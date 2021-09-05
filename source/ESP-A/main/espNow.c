@@ -57,7 +57,7 @@ char  *jsonToString;
 int num=5;
 char item_char[100]="1102,2109,1023,2310,1021";
 char count_char[100]="10,20,5,10,15";
- 
+
 /*Callback function when ESPNow send a message-----------------------------------------------*/
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
   char macStr[18];
