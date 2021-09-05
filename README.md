@@ -15,7 +15,7 @@ For ESPNOW we have to mention the MAC address of the devices to which the data h
   In line no.49 broadcastAddress1[] should contain the MAC address of the device to which the data to be sent.
   
 Future Scope-
-1. We can add a GATT code to give the details of MAC address of the other device over BLE.
+1. We can add a GATT code to give the details of MAC address of the other device over BLE instead of giving manually in the code.
 2. Use MQTT so that the device can sync anywhere around the world.
 # Espressif IoT Development Framework
 
